@@ -346,3 +346,128 @@ img {
     grid-template-columns: 1fr;
   }
 }
+/* REVIEW BOX */
+.review-box-section {
+  padding: 80px 20px;
+  background: #111827;
+}
+
+.review-box-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #1f2937;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.review-box-container h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.review-box-container p {
+  text-align: center;
+  color: #d1d5db;
+  margin-bottom: 25px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.review-form input::placeholder,
+.review-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.review-form button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background: #1d4ed8;
+}
+/* TESTIMONIALS */
+.testimonials-section {
+  padding: 80px 20px;
+  background: #0f172a;
+}
+
+.testimonials-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonials-container h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.testimonials-container p {
+  color: #d1d5db;
+  margin-bottom: 35px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: #1f2937;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  text-align: left;
+}
+
+.testimonial-stars {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.testimonial-text {
+  color: #e5e7eb;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.testimonial-name {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1rem;
+}
