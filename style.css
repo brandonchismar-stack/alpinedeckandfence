@@ -250,16 +250,16 @@ section{padding:26px 0 70px}
 
 
 .logo{
-  height:52px;
+  height:105px;
   width:auto;
   display:block;
 }
 
 @media (max-width:760px){
-  .logo{height:44px;}
+  .logo{
+    height:75px;
+  }
 }
-
-
 .review-card{
   position:relative;
 }
