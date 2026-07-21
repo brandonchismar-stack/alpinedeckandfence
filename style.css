@@ -129,7 +129,7 @@ li{color:var(--muted);margin-bottom:8px}
   min-height:100%;
   background:
     linear-gradient(180deg,rgba(4,10,25,.15),rgba(4,10,25,.38)),
-    url("images/caretakers-deck-hero-clean.png") center/cover no-repeat;
+    url("images/1430_Finish_1.jpg") center/cover no-repeat;
 }
 .hero-image .badge-stack{
   padding:28px;display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;
