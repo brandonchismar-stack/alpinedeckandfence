@@ -315,36 +315,667 @@ section{padding:26px 0 70px}
 .compare-label.right{right:14px;}
 
 
-.review-form{
+
+
+.about-teaser{
   display:grid;
-  gap:14px;
+  grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);
+  gap:0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 88% 10%,rgba(96,165,250,.14),transparent 35%),
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.03));
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
 }
-.review-form label{
-  display:grid;
-  gap:6px;
-  color:#fff;
+.about-teaser-photo{min-height:470px;background:#0b1222}
+.about-teaser-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+.about-teaser-copy{padding:42px;display:flex;flex-direction:column;justify-content:center}
+.about-teaser-copy .lead{font-size:1.08rem;color:#dce8fb}
+.about-teaser-points{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 26px}
+.about-teaser-points span{
+  padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.035);color:#d8e6fa;font-size:.9rem;font-weight:700
+}
+.about-teaser-copy .button{width:fit-content}
+
+.about-hero{padding:72px 0 44px}
+.about-hero-grid{
+  display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:start
+}
+.about-hero-copy,.about-hero-photo,.about-tall-photo,.flag-story,.colorado-story,.career-disclaimer{
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.03));
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+}
+.about-hero-copy{padding:42px}
+.about-hero-copy .lead{font-size:1.14rem;color:#dce8fb}
+.about-hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.about-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px}
+.about-facts div{padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.about-facts strong{display:block;font-family:Montserrat,Arial,sans-serif;font-size:1.45rem;color:#fff}
+.about-facts span{display:block;color:var(--muted);font-size:.86rem;line-height:1.35;margin-top:4px}
+.about-hero-photo{overflow:hidden;margin:0;display:flex;flex-direction:column;align-self:start;height:auto}
+.about-hero-photo img{width:100%;height:560px;object-fit:cover;object-position:center}
+.about-hero-photo figcaption,.about-tall-photo figcaption{
+  padding:16px 20px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)
+}
+
+.about-story-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:stretch}
+.about-story-copy{padding:12px 0}
+.about-principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.about-principles article{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03)}
+.about-principles article p{margin-bottom:0;font-size:.94rem}
+.about-tall-photo{overflow:hidden;margin:0;display:flex;flex-direction:column}
+.about-tall-photo img{width:100%;height:100%;min-height:500px;object-fit:cover;object-position:center}
+
+.flag-story-section{padding-top:40px}
+.flag-story{display:grid;grid-template-columns:.82fr 1.18fr;overflow:hidden}
+.flag-story-photo{margin:0;min-height:560px;background:#0b1222}
+.flag-story-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+.flag-story-copy{padding:46px;display:flex;flex-direction:column;justify-content:center}
+.flag-story-copy blockquote{
+  margin:18px 0 0;padding:20px 22px;border-left:3px solid var(--accent-2);
+  background:rgba(96,165,250,.07);border-radius:0 16px 16px 0;color:#fff;
+  font-family:Montserrat,Arial,sans-serif;font-weight:700;font-size:1.03rem
+}
+
+.colorado-story{
+  display:grid;grid-template-columns:1.1fr .9fr;overflow:hidden;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(96,165,250,.13),transparent 34%),
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));
+}
+.colorado-story-copy{padding:44px;display:flex;flex-direction:column;justify-content:center}
+.colorado-photo{margin:0;min-height:560px;background:#0b1222}
+.colorado-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+
+.behind-work-section{padding-top:34px}
+.behind-work-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.behind-work-card{
+  overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));box-shadow:var(--shadow)
+}
+.behind-work-card img{width:100%;height:360px;object-fit:cover}
+.behind-work-card.serious img{object-position:center}
+.behind-work-card.personality img{object-position:center 36%}
+.behind-work-card div{padding:22px 24px}
+.behind-work-card div p{margin-bottom:0}
+
+.career-section{padding-top:38px}
+.career-header{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start;margin-bottom:24px}
+.career-disclaimer{padding:22px 24px;background:rgba(96,165,250,.055)}
+.career-disclaimer strong{display:block;color:#fff;font-family:Montserrat,Arial,sans-serif;margin-bottom:7px}
+.career-disclaimer p{font-size:.9rem;margin:0}
+.career-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.career-card{
+  overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));box-shadow:var(--shadow)
+}
+.career-card img{width:100%;height:270px;object-fit:cover}
+.career-card div{padding:21px 22px}
+.career-card span{display:block;color:var(--accent-2);font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.career-card p{margin-bottom:0}
+
+@media (max-width:1050px){
+  .about-teaser,.about-hero-grid,.about-story-grid,.flag-story,.colorado-story,.career-header{grid-template-columns:1fr 1fr}
+  .about-principles,.career-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .about-teaser,.about-hero-grid,.about-story-grid,.flag-story,.colorado-story,.career-header,.behind-work-grid,.career-grid{grid-template-columns:1fr}
+  .about-teaser-photo{min-height:360px}
+  .about-teaser-copy,.about-hero-copy,.flag-story-copy,.colorado-story-copy{padding:26px 22px}
+  .about-facts,.about-principles{grid-template-columns:1fr}
+  .about-hero-photo img{height:430px}
+  .about-tall-photo img,.flag-story-photo,.colorado-photo{min-height:420px}
+  .behind-work-card img{height:290px}
+  .career-card img{height:240px}
+}
+
+
+.trade-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin:22px 0 4px;
+}
+.trade-strip span{
+  padding:8px 11px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  color:#dce8fb;
+  font-size:.82rem;
   font-weight:700;
 }
-.review-form input,
-.review-form select,
-.review-form textarea{
-  width:100%;
-  padding:14px 16px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  color:var(--text);
-  font:inherit;
+.about-tall-photo.team-photo img{
+  object-fit:cover;
+  object-position:center 32%;
 }
-.review-form textarea{
-  min-height:130px;
-  resize:vertical;
+.flag-story-copy blockquote span{
+  display:block;
 }
-.review-form .button{
-  border:0;
-  cursor:pointer;
-  width:fit-content;
-}
-.review-form small{
+.flag-story-copy blockquote cite{
+  display:block;
+  margin-top:9px;
   color:var(--muted);
+  font-family:Roboto,Arial,sans-serif;
+  font-size:.88rem;
+  font-style:normal;
+  font-weight:500;
+}
+.career-card img{
+  object-position:center;
+}
+.career-card:nth-child(3) img{
+  object-position:center 62%;
+}
+.career-card:nth-child(4) img{
+  object-position:center;
+}
+.career-card:nth-child(5) img{
+  object-position:center;
+}
+@media (max-width:760px){
+  .trade-strip{margin-top:18px}
+  .about-tall-photo.team-photo img{object-position:center 24%}
+}
+
+
+.about-tall-photo.field-photo img{
+  object-fit:cover;
+  object-position:center 38%;
+}
+.flag-story-copy{padding:40px 42px}
+.crew-proof{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:18px;
+  align-items:center;
+  margin:24px 0 0;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(96,165,250,.055);
+}
+.crew-proof img{
+  width:150px;
+  height:180px;
+  object-fit:cover;
+  object-position:center 42%;
+  border-radius:13px;
+}
+.crew-proof figcaption{
+  color:var(--muted);
+  font-size:.93rem;
+  line-height:1.55;
+}
+.crew-proof strong{display:block;color:#fff;margin-bottom:5px}
+.colorado-story{grid-template-columns:1fr 1fr}
+.colorado-photo{min-height:0;height:470px}
+.colorado-photo img{height:100%;object-position:center 54%}
+.behind-work-card.serious img{object-position:center 56%}
+.career-card:nth-child(2) img{object-position:center 48%}
+.career-card:nth-child(4) img{object-position:center 50%}
+@media (max-width:760px){
+  .crew-proof{grid-template-columns:105px 1fr;gap:12px}
+  .crew-proof img{width:105px;height:140px}
+  .colorado-photo{height:390px;min-height:0}
+  .flag-story-copy{padding:26px 22px}
+}
+
+
+.google-review-cta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  padding:32px 34px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:
+    radial-gradient(circle at 92% 8%,rgba(96,165,250,.16),transparent 36%),
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.03));
+  box-shadow:var(--shadow);
+}
+.google-review-cta-copy{max-width:700px}
+.google-review-cta-copy h2{margin-bottom:10px}
+.google-review-cta-copy p{margin-bottom:0}
+.google-review-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:12px;
+  flex:0 0 auto;
+}
+.google-review-actions .button,
+.google-review-actions .button-outline{white-space:nowrap}
+@media (max-width:760px){
+  .google-review-cta{align-items:flex-start;flex-direction:column;padding:26px 22px}
+  .google-review-actions{justify-content:flex-start;width:100%}
+  .google-review-actions .button,
+  .google-review-actions .button-outline{width:100%}
+}
+
+.behind-work-card.serious img{object-position:center 52%}
+
+
+.experience-collage-wrap{
+  margin-top:34px;
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:
+    radial-gradient(circle at 86% 10%,rgba(96,165,250,.14),transparent 34%),
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
+  box-shadow:var(--shadow);
+}
+.experience-collage-intro{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:22px;
+}
+.experience-collage-intro h3{font-size:2rem;margin-bottom:8px}
+.experience-collage-intro p{margin-bottom:0;max-width:720px}
+.experience-collage-note{
+  flex:0 0 290px;
+  color:var(--muted);
+  font-size:.84rem;
+  line-height:1.5;
+  text-align:right;
+}
+.experience-collage{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  grid-template-rows:250px 250px;
+  gap:14px;
+}
+.experience-tile{
+  position:relative;
+  overflow:hidden;
+  padding:0;
+  border:1px solid rgba(148,163,184,.24);
+  border-radius:18px;
+  background:#0b1222;
+  cursor:zoom-in;
+  box-shadow:0 14px 35px rgba(0,0,0,.24);
+  transition:transform .22s ease,border-color .22s ease,opacity .25s ease;
+}
+.experience-tile:hover,
+.experience-tile:focus-visible{
+  transform:translateY(-2px);
+  border-color:rgba(96,165,250,.72);
+  outline:none;
+}
+.experience-tile.is-changing{opacity:.12}
+.experience-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .55s ease;
+}
+.experience-tile:hover img{transform:scale(1.025)}
+.experience-tile.is-contain img{object-fit:contain;background:#07101f}
+.experience-tile span{
+  position:absolute;
+  left:14px;
+  bottom:14px;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  background:rgba(3,8,20,.78);
+  color:#fff;
+  font-family:Montserrat,Arial,sans-serif;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.02em;
+  backdrop-filter:blur(8px);
+}
+.experience-tile-feature{grid-column:span 7;grid-row:span 2}
+.experience-tile-wide{grid-column:span 5}
+.experience-tile-small{grid-column:span 2}
+.experience-tile:nth-child(3){grid-column:8 / span 2}
+.experience-tile:nth-child(4){grid-column:10 / span 3}
+.experience-tile-mobile{display:none}
+.experience-lightbox{
+  width:min(1040px,92vw);
+  max-width:none;
+  padding:0;
+  border:1px solid rgba(148,163,184,.3);
+  border-radius:22px;
+  background:#0b1222;
+  color:#fff;
+  box-shadow:0 30px 90px rgba(0,0,0,.7);
+}
+.experience-lightbox::backdrop{background:rgba(2,6,18,.86);backdrop-filter:blur(5px)}
+.experience-lightbox img{
+  display:block;
+  width:100%;
+  max-height:76vh;
+  object-fit:contain;
+  background:#060b16;
+  border-radius:22px 22px 0 0;
+}
+.experience-lightbox p{
+  margin:0;
+  padding:17px 22px 20px;
+  color:#dce8fb;
+  font-family:Montserrat,Arial,sans-serif;
+  font-weight:700;
+}
+.experience-lightbox-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:2;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:50%;
+  background:rgba(3,8,20,.78);
+  color:#fff;
+  font-size:1.8rem;
+  line-height:1;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+}
+@media (max-width:900px){
+  .experience-collage-intro{align-items:flex-start;flex-direction:column;gap:10px}
+  .experience-collage-note{flex:auto;text-align:left;max-width:620px}
+  .experience-collage{grid-template-rows:220px 220px}
+}
+@media (max-width:760px){
+  .experience-collage-wrap{padding:24px 0 18px;overflow:hidden}
+  .experience-collage-intro{padding:0 22px;margin-bottom:18px}
+  .experience-collage-intro h3{font-size:1.55rem}
+  .experience-collage-note{display:none}
+  .experience-collage{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:0 22px 12px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:thin;
+  }
+  .experience-tile,
+  .experience-tile-mobile{
+    display:block;
+    flex:0 0 84%;
+    height:320px;
+    scroll-snap-align:center;
+    grid-column:auto;
+    grid-row:auto;
+  }
+  .experience-tile span{left:12px;bottom:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  .experience-tile,.experience-tile img{transition:none}
+}
+
+body{
+  background-color:#08111f;
+  background-image:
+    linear-gradient(180deg,rgba(5,12,24,.38) 0%,rgba(7,15,28,.18) 42%,rgba(5,12,23,.48) 100%),
+    url("images/alpine-ridge-background.svg");
+  background-repeat:no-repeat,no-repeat;
+  background-position:center,center bottom;
+  background-size:cover,cover;
+  background-attachment:fixed,fixed;
+}
+.topbar{
+  background:rgba(2,7,19,.88);
+  border-bottom-color:rgba(148,163,184,.13);
+}
+.footer{
+  background:rgba(2,7,19,.72);
+  backdrop-filter:blur(10px);
+}
+
+.about-page main{
+  position:relative;
+  isolation:isolate;
+}
+.about-page main::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 14% 10%,rgba(96,165,250,.08),transparent 30%),
+    radial-gradient(circle at 84% 40%,rgba(72,108,148,.07),transparent 32%),
+    linear-gradient(180deg,rgba(6,14,27,.10),rgba(6,14,27,.35));
+}
+
+.about-page .about-hero-copy,
+.about-page .about-hero-photo,
+.about-page .about-tall-photo,
+.about-page .flag-story,
+.about-page .colorado-story,
+.about-page .behind-work-card,
+.about-page .career-disclaimer,
+.about-page .career-card,
+.about-page .experience-collage-wrap,
+.about-page .google-review-cta{
+  background:
+    linear-gradient(180deg,rgba(17,31,54,.91),rgba(8,19,35,.89));
+  border-color:rgba(160,184,214,.15);
+  backdrop-filter:blur(5px);
+}
+.about-page .about-principles article,
+.about-page .about-facts div,
+.about-page .crew-proof{
+  background:rgba(10,23,41,.66);
+  border-color:rgba(160,184,214,.14);
+  backdrop-filter:blur(4px);
+}
+.about-page .eyebrow{
+  background:rgba(67,111,160,.20);
+  border-color:rgba(130,174,220,.23);
+}
+.about-page .experience-tile,
+.about-page .career-card,
+.about-page .behind-work-card{
+  box-shadow:0 18px 44px rgba(0,0,0,.34);
+}
+
+@media (max-width:760px){
+  body{
+    background-attachment:scroll,scroll;
+    background-size:auto 100%,auto 100%;
+    background-position:center top,center bottom;
+  }
+  .about-page .about-hero-copy,
+  .about-page .about-hero-photo,
+  .about-page .about-tall-photo,
+  .about-page .flag-story,
+  .about-page .colorado-story,
+  .about-page .behind-work-card,
+  .about-page .career-disclaimer,
+  .about-page .career-card,
+  .about-page .experience-collage-wrap,
+  .about-page .google-review-cta{
+    backdrop-filter:none;
+  }
+}
+
+:root{
+  --bg:#07111f;
+  --bg-soft:#0a1728;
+  --panel:#0d1c30;
+  --panel-2:#12243a;
+  --text:#f2f0eb;
+  --muted:#aeb9c8;
+  --line:rgba(203,213,225,.11);
+  --accent:#3f7098;
+  --accent-2:#83a8c6;
+  --cedar:#b7895c;
+  --cedar-soft:#d0ad86;
+  --dark:#030913;
+  --radius:18px;
+  --shadow:0 24px 65px rgba(0,0,0,.27);
+}
+
+body{
+  color:var(--text);
+  line-height:1.68;
+  letter-spacing:.002em;
+  background-color:#07111f;
+  background-image:
+    linear-gradient(180deg,rgba(4,10,19,.58) 0%,rgba(7,17,31,.34) 48%,rgba(4,10,19,.68) 100%),
+    url("images/alpine-ridge-background.svg");
+}
+
+h1,h2,h3,h4{letter-spacing:-.022em}
+h2{margin-bottom:16px}
+p{color:var(--muted);line-height:1.72}
+section{padding:38px 0 88px}
+.section-header{margin-bottom:32px}
+.section-header h2,
+.about-page h2{position:relative}
+.section-header h2::after,
+.about-page .about-story-copy > h2::after,
+.about-page .flag-story-copy > h2::after,
+.about-page .colorado-story-copy > h2::after,
+.about-page .career-header h2::after{
+  content:"";
+  display:block;
+  width:52px;
+  height:2px;
+  margin-top:15px;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--cedar),rgba(183,137,92,.08));
+}
+
+.topbar{
+  background:rgba(3,9,19,.90);
+  border-bottom:1px solid rgba(203,213,225,.09);
+  box-shadow:0 10px 34px rgba(0,0,0,.16);
+}
+.nav-links a{color:#aeb9c8;font-weight:500}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.brand-text small{color:#9faec1}
+
+.button{
+  background:linear-gradient(135deg,#345f82,#477999);
+  color:#fff;
+  box-shadow:0 12px 30px rgba(31,70,103,.27),inset 0 1px 0 rgba(255,255,255,.10);
+}
+.button:hover{transform:translateY(-1px);box-shadow:0 15px 34px rgba(31,70,103,.34)}
+.button-outline{
+  border:1px solid rgba(203,213,225,.16);
+  background:rgba(8,20,35,.48);
+  color:#f4f1eb;
+}
+.button-outline:hover{background:rgba(16,34,55,.72);border-color:rgba(208,173,134,.32)}
+
+.eyebrow{
+  padding:7px 13px;
+  background:rgba(63,112,152,.13);
+  border:1px solid rgba(131,168,198,.18);
+  color:#dce6ee;
+  font-size:.82rem;
+  letter-spacing:.075em;
+  text-transform:uppercase;
+}
+
+.hero-copy,.hero-card,.card,.gallery-card,.cta-band,.review-card,.service-card,.stat-card,.contact-card,.page-header-card,.project-card{
+  background:linear-gradient(180deg,rgba(15,31,51,.82),rgba(8,20,35,.76));
+  border:1px solid rgba(203,213,225,.10);
+  box-shadow:0 22px 58px rgba(0,0,0,.25);
+}
+.hero-copy{padding:46px}
+.hero-list div,
+.feature-list div,
+.process-step,
+.contact-item{
+  border-color:rgba(203,213,225,.09);
+  background:rgba(8,21,37,.52);
+}
+.gallery-card,.project-card,.service-card,.review-card,.stat-card,.contact-card{
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.gallery-card:hover,.project-card:hover,.service-card:hover,.review-card:hover,.stat-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(183,137,92,.22);
+  box-shadow:0 28px 65px rgba(0,0,0,.31);
+}
+
+.cta-band{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(183,137,92,.09),transparent 30%),
+    linear-gradient(180deg,rgba(16,33,54,.86),rgba(8,20,35,.80));
+}
+.footer{border-top-color:rgba(203,213,225,.08);background:rgba(3,9,19,.78)}
+
+.about-page main::before{
+  background:
+    radial-gradient(circle at 14% 9%,rgba(111,147,178,.045),transparent 31%),
+    radial-gradient(circle at 85% 40%,rgba(183,137,92,.025),transparent 29%),
+    linear-gradient(180deg,rgba(5,13,24,.06),rgba(5,13,24,.30));
+}
+.about-page .about-hero-copy,
+.about-page .about-hero-photo,
+.about-page .about-tall-photo,
+.about-page .flag-story,
+.about-page .colorado-story,
+.about-page .behind-work-card,
+.about-page .career-disclaimer,
+.about-page .career-card,
+.about-page .experience-collage-wrap,
+.about-page .google-review-cta{
+  background:linear-gradient(180deg,rgba(14,30,50,.83),rgba(7,18,32,.79));
+  border-color:rgba(203,213,225,.10);
+  backdrop-filter:blur(9px);
+  box-shadow:0 24px 64px rgba(0,0,0,.27);
+}
+.about-page .about-principles article,
+.about-page .about-facts div,
+.about-page .crew-proof{
+  background:rgba(7,19,34,.56);
+  border-color:rgba(203,213,225,.09);
+}
+.about-page .about-hero-copy{padding:50px}
+.about-page .flag-story-copy,
+.about-page .colorado-story-copy{padding:50px}
+.about-page .career-disclaimer{
+  border-left:2px solid rgba(183,137,92,.55);
+  background:linear-gradient(90deg,rgba(183,137,92,.055),rgba(9,21,37,.67));
+}
+.about-page .career-card span{color:var(--cedar-soft)}
+.about-page .crew-proof strong{color:#f4efe7}
+.about-page .trade-strip span{
+  border-color:rgba(203,213,225,.10);
+  background:rgba(7,19,34,.50);
+}
+
+.experience-collage-wrap{
+  padding:34px;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(183,137,92,.055),transparent 31%),
+    linear-gradient(180deg,rgba(14,30,50,.85),rgba(7,18,32,.80));
+}
+.experience-tile{
+  border-color:rgba(203,213,225,.13);
+  box-shadow:0 16px 38px rgba(0,0,0,.25);
+}
+.experience-tile:hover,.experience-tile:focus-visible{border-color:rgba(183,137,92,.48)}
+.experience-tile span{
+  border-color:rgba(255,255,255,.14);
+  background:rgba(3,9,18,.78);
+  color:#f5f1ea;
+}
+
+@media (max-width:760px){
+  section{padding:28px 0 64px}
+  .hero-copy,.about-page .about-hero-copy{padding:28px 22px}
+  .about-page .flag-story-copy,.about-page .colorado-story-copy{padding:28px 22px}
+  .experience-collage-wrap{padding:24px 0 18px}
+  .section-header h2::after,
+  .about-page .about-story-copy > h2::after,
+  .about-page .flag-story-copy > h2::after,
+  .about-page .colorado-story-copy > h2::after,
+  .about-page .career-header h2::after{width:42px;margin-top:12px}
 }
