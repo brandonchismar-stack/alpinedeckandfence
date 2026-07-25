@@ -129,7 +129,7 @@ li{color:var(--muted);margin-bottom:8px}
   min-height:100%;
   background:
     linear-gradient(180deg,rgba(4,10,25,.15),rgba(4,10,25,.38)),
-    url("images/1430_finish_2.jpg") center/cover no-repeat;
+    url("images/1430_finish_2.webp") center/cover no-repeat;
 }
 .hero-image .badge-stack{
   padding:28px;display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;
@@ -978,4 +978,38 @@ section{padding:38px 0 88px}
   .about-page .flag-story-copy > h2::after,
   .about-page .colorado-story-copy > h2::after,
   .about-page .career-header h2::after{width:42px;margin-top:12px}
+}
+
+
+/* Mobile performance pass: preserve the approved design without costly live blur effects. */
+@media (max-width:760px){
+  body{background-attachment:scroll !important;background-size:auto 100%,auto 100%}
+  .topbar,.footer,
+  .about-page .about-hero-copy,
+  .about-page .about-hero-photo,
+  .about-page .about-tall-photo,
+  .about-page .flag-story,
+  .about-page .colorado-story,
+  .about-page .behind-work-card,
+  .about-page .career-disclaimer,
+  .about-page .career-card,
+  .about-page .experience-collage-wrap,
+  .about-page .google-review-cta,
+  .about-page .about-principles article,
+  .about-page .about-facts div,
+  .about-page .crew-proof,
+  .experience-tile span,
+  .experience-lightbox::backdrop,
+  .experience-lightbox-close{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+  .topbar{background:rgba(3,9,19,.97)}
+  .footer{background:rgba(3,9,19,.94)}
+  .gallery-card,.project-card,.service-card,.review-card,.stat-card,.contact-card,
+  .experience-tile,.experience-tile img,.button,.button-outline{transition:none !important}
+}
+@media (hover:none){
+  .gallery-card:hover,.project-card:hover,.service-card:hover,.review-card:hover,.stat-card:hover,
+  .experience-tile:hover,.button:hover{transform:none}
 }
