@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#91a6b8" stop-opacity="0"/>
+      <stop offset="0.50" stop-color="#91a6b8" stop-opacity="0.045"/>
+      <stop offset="1" stop-color="#07111f" stop-opacity="0.20"/>
+    </linearGradient>
+    <linearGradient id="rear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#435e75" stop-opacity="0.23"/>
+      <stop offset="1" stop-color="#233b52" stop-opacity="0.31"/>
+    </linearGradient>
+    <linearGradient id="middle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#263f57" stop-opacity="0.46"/>
+      <stop offset="1" stop-color="#142b42" stop-opacity="0.64"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#122a41" stop-opacity="0.74"/>
+      <stop offset="1" stop-color="#07131f" stop-opacity="0.96"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="960" cy="530" rx="700" ry="210" fill="#7e9db7" opacity="0.032" filter="url(#softGlow)"/>
+  <ellipse cx="1430" cy="730" rx="400" ry="130" fill="#b7895c" opacity="0.018" filter="url(#softGlow)"/>
+  <rect width="1920" height="1080" fill="url(#mist)"/>
+
+  <path d="M0 760 L150 650 L285 712 L430 570 L555 662 L700 510 L824 625 L960 438 L1090 590 L1218 500 L1360 640 L1515 520 L1655 655 L1780 575 L1920 690 L1920 1080 L0 1080 Z" fill="url(#rear)"/>
+  <path d="M430 570 L505 620 L555 662 L610 620" fill="none" stroke="#d6dce1" stroke-opacity="0.055" stroke-width="4"/>
+  <path d="M700 510 L758 575 L824 625 L873 574" fill="none" stroke="#d6dce1" stroke-opacity="0.060" stroke-width="4"/>
+  <path d="M960 438 L1018 514 L1090 590 L1142 548" fill="none" stroke="#d6dce1" stroke-opacity="0.065" stroke-width="4"/>
+  <path d="M1515 520 L1570 585 L1655 655 L1708 610" fill="none" stroke="#d6dce1" stroke-opacity="0.050" stroke-width="4"/>
+
+  <path d="M0 865 L175 748 L320 822 L515 690 L670 798 L860 650 L1010 790 L1195 648 L1370 792 L1535 676 L1700 812 L1920 695 L1920 1080 L0 1080 Z" fill="url(#middle)"/>
+  <path d="M0 940 L160 865 L330 918 L510 815 L690 928 L865 810 L1038 930 L1218 800 L1410 920 L1590 820 L1775 920 L1920 845 L1920 1080 L0 1080 Z" fill="url(#front)"/>
+
+  <g fill="none" stroke="#aab9c6" stroke-width="2" opacity="0.032">
+    <path d="M-70 880 C180 785 310 855 515 750 C715 648 835 712 1000 625 C1185 528 1370 608 1545 540 C1710 476 1835 510 2010 445"/>
+    <path d="M-90 922 C135 842 298 900 488 812 C680 722 855 770 1010 700 C1200 616 1342 675 1520 608 C1700 540 1842 572 2000 520"/>
+    <path d="M-80 970 C120 905 280 947 470 874 C664 800 830 838 1004 776 C1195 708 1360 750 1532 690 C1710 628 1845 655 2005 610"/>
+    <path d="M-45 1015 C160 958 330 992 510 936 C682 883 850 907 1018 864 C1190 820 1370 845 1548 802 C1715 762 1852 780 1980 745"/>
+  </g>
+</svg>
