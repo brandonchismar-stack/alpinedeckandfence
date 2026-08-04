@@ -177,3 +177,113 @@ document.addEventListener("DOMContentLoaded", () => {
   setupMobileImages();
   start();
 });
+
+/* ALPINE ANALYTICS START */
+(() => {
+  "use strict";
+
+  // Paste the Google Analytics 4 Measurement ID here when created, for example: G-ABC1234567
+  // Leave blank until then. The site works normally and makes no Analytics request while blank.
+  const GA4_MEASUREMENT_ID = "G-3P6CBXWGLE";
+  const VALID_GA4_ID = /^G-[A-Z0-9]+$/i.test(GA4_MEASUREMENT_ID);
+  const ATTRIBUTION_KEY = "alpine_attribution_v1";
+
+  const cleanText = value => String(value || "").trim().replace(/\s+/g, " ").slice(0, 120);
+  const currentPath = () => `${location.pathname}${location.search}`;
+
+  const readAttribution = () => {
+    try {
+      const stored = JSON.parse(sessionStorage.getItem(ATTRIBUTION_KEY) || "null");
+      if (stored) return stored;
+    } catch (_) {}
+
+    const params = new URLSearchParams(location.search);
+    const data = {
+      landing_page: currentPath(),
+      referrer: document.referrer || "direct",
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_content: params.get("utm_content") || "",
+      utm_term: params.get("utm_term") || "",
+      gclid: params.get("gclid") || "",
+      fbclid: params.get("fbclid") || ""
+    };
+    try { sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(data)); } catch (_) {}
+    return data;
+  };
+
+  const attribution = readAttribution();
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
+  const sendEvent = (name, params = {}) => {
+    if (!VALID_GA4_ID) return;
+    window.gtag("event", name, {
+      page_path: location.pathname,
+      page_title: document.title,
+      traffic_source: attribution.utm_source || "",
+      traffic_medium: attribution.utm_medium || "",
+      traffic_campaign: attribution.utm_campaign || "",
+      ...params
+    });
+  };
+
+  if (VALID_GA4_ID) {
+    const tag = document.createElement("script");
+    tag.async = true;
+    tag.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA4_MEASUREMENT_ID)}`;
+    document.head.appendChild(tag);
+    window.gtag("js", new Date());
+    window.gtag("config", GA4_MEASUREMENT_ID, {
+      send_page_view: true,
+      campaign_source: attribution.utm_source || undefined,
+      campaign_medium: attribution.utm_medium || undefined,
+      campaign_name: attribution.utm_campaign || undefined
+    });
+    sendEvent("session_attribution", {
+      landing_page: attribution.landing_page,
+      initial_referrer: attribution.referrer,
+      has_gclid: Boolean(attribution.gclid),
+      has_fbclid: Boolean(attribution.fbclid)
+    });
+  }
+
+  document.addEventListener("click", event => {
+    const link = event.target.closest("a[href]");
+    if (!link) return;
+    const href = link.getAttribute("href") || "";
+    const text = cleanText(link.textContent || link.getAttribute("aria-label"));
+    const common = { link_url: href, link_text: text, link_location: cleanText(link.closest("header,main,footer")?.tagName || "page") };
+
+    if (href.startsWith("tel:")) {
+      sendEvent("phone_click", { ...common, phone_number: href.replace(/^tel:/i, "") });
+      return;
+    }
+    if (href.startsWith("mailto:")) {
+      sendEvent("email_click", { ...common, email_address: href.replace(/^mailto:/i, "").split("?")[0] });
+      return;
+    }
+
+    let url;
+    try { url = new URL(href, location.href); } catch (_) { return; }
+    const host = url.hostname.replace(/^www\./, "");
+    if (host.includes("google.com") && /review|maps|search/i.test(`${url.pathname}${url.search}`)) {
+      sendEvent(/review/i.test(`${url.pathname}${url.search}`) ? "google_review_click" : "google_profile_click", common);
+      return;
+    }
+    if (host.includes("facebook.com")) {
+      sendEvent("facebook_click", common);
+      return;
+    }
+    if (url.origin === location.origin && /contact\.html/i.test(url.pathname)) {
+      sendEvent("quote_click", common);
+      return;
+    }
+    if (url.origin !== location.origin && /^https?:$/i.test(url.protocol)) {
+      sendEvent("outbound_click", { ...common, outbound_domain: host });
+    }
+  }, { passive: true });
+})();
+/* ALPINE ANALYTICS END */
+
