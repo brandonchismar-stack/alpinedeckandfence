@@ -250,14 +250,15 @@ section{padding:26px 0 70px}
 
 
 .logo{
-  height:105px;
+  height:92px;
   width:auto;
   display:block;
+  flex:0 0 auto;
 }
 
 @media (max-width:760px){
   .logo{
-    height:75px;
+    height:68px;
   }
 }
 .review-card{
@@ -1012,4 +1013,21 @@ section{padding:38px 0 88px}
 @media (hover:none){
   .gallery-card:hover,.project-card:hover,.service-card:hover,.review-card:hover,.stat-card:hover,
   .experience-tile:hover,.button:hover{transform:none}
+}
+
+
+/* v19: recent project media + exact-logo visibility pass */
+.brand{flex:0 0 auto}
+.video-gallery-card video{
+  width:100%;
+  height:270px;
+  display:block;
+  object-fit:cover;
+  background:#030913;
+}
+.recent-carpentry-section .gallery-card{min-width:0}
+@media (max-width:760px){
+  .video-gallery-card video{height:220px}
+  .brand{gap:11px}
+  .brand-text span{font-size:1rem}
 }
