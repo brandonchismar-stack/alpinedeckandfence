@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const desktopTiles = [...gallery.querySelectorAll(".experience-tile[data-trade]")];
   const allTiles = [...gallery.querySelectorAll(".experience-tile")];
   const mobileImages = [...gallery.querySelectorAll(".experience-tile-mobile img[data-src]")];
+  const prevButton = document.querySelector("[data-experience-prev]");
+  const nextButton = document.querySelector("[data-experience-next]");
   const mobileQuery = window.matchMedia("(max-width: 760px)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let nextTileIndex = 0;
@@ -61,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let paused = false;
   let galleryInView = false;
   let mobileObserver = null;
+  let manualResumeTimer = null;
 
   desktopTiles.forEach(tile => { tile.dataset.itemIndex = "0"; });
 
@@ -90,28 +93,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const swapTileImage = (tile, direction = 1) => {
+    const pool = pools[tile.dataset.trade];
+    if (!pool?.length) return Promise.resolve();
+    const currentIndex = Number(tile.dataset.itemIndex || 0);
+    const nextItemIndex = (currentIndex + direction + pool.length) % pool.length;
+    const item = pool[nextItemIndex];
+
+    return new Promise(resolve => {
+      const preload = new Image();
+      preload.decoding = "async";
+      preload.src = item.src;
+      preload.onload = () => {
+        tile.classList.add("is-changing");
+        window.setTimeout(() => {
+          const img = tile.querySelector("img");
+          if (img) {
+            img.src = item.src;
+            img.alt = item.alt;
+            tile.classList.toggle("is-contain", item.fit === "contain");
+            tile.dataset.itemIndex = String(nextItemIndex);
+          }
+          tile.classList.remove("is-changing");
+          resolve();
+        }, 150);
+      };
+      preload.onerror = resolve;
+    });
+  };
+
+  const pauseAfterManualBrowse = () => {
+    stop();
+    window.clearTimeout(manualResumeTimer);
+    manualResumeTimer = window.setTimeout(start, 10000);
+  };
+
+  const browseDesktop = direction => {
+    pauseAfterManualBrowse();
+    desktopTiles.forEach(tile => swapTileImage(tile, direction));
+    nextTileIndex = direction > 0
+      ? (nextTileIndex + 1) % Math.max(desktopTiles.length, 1)
+      : (nextTileIndex - 1 + Math.max(desktopTiles.length, 1)) % Math.max(desktopTiles.length, 1);
+  };
+
+  const browseMobile = direction => {
+    pauseAfterManualBrowse();
+    const firstTile = gallery.querySelector(".experience-tile");
+    const gap = 12;
+    const amount = firstTile ? firstTile.getBoundingClientRect().width + gap : gallery.clientWidth * 0.84;
+    gallery.scrollBy({left: direction * amount, behavior:"smooth"});
+  };
+
+  const manualBrowse = direction => {
+    if (mobileQuery.matches) browseMobile(direction);
+    else browseDesktop(direction);
+  };
+
   const rotateOne = () => {
     if (paused || !galleryInView || document.hidden || mobileQuery.matches || reducedMotion.matches || !desktopTiles.length) return;
     const tile = desktopTiles[nextTileIndex % desktopTiles.length];
-    const pool = pools[tile.dataset.trade];
-    if (!pool?.length) return;
-    const nextItemIndex = (Number(tile.dataset.itemIndex || 0) + 1) % pool.length;
-    const item = pool[nextItemIndex];
-    const preload = new Image();
-    preload.decoding = "async";
-    preload.src = item.src;
-    preload.onload = () => {
-      tile.classList.add("is-changing");
-      window.setTimeout(() => {
-        const img = tile.querySelector("img");
-        if (!img) return;
-        img.src = item.src;
-        img.alt = item.alt;
-        tile.classList.toggle("is-contain", item.fit === "contain");
-        tile.dataset.itemIndex = String(nextItemIndex);
-        tile.classList.remove("is-changing");
-      }, 180);
-    };
+    swapTileImage(tile, 1);
     nextTileIndex += 1;
   };
 
@@ -132,6 +173,9 @@ document.addEventListener("DOMContentLoaded", () => {
   gallery.addEventListener("focusout", event => {
     if (!gallery.contains(event.relatedTarget)) { paused = false; start(); }
   });
+
+  prevButton?.addEventListener("click", () => manualBrowse(-1));
+  nextButton?.addEventListener("click", () => manualBrowse(1));
 
   const handleModeChange = () => {
     setupMobileImages();

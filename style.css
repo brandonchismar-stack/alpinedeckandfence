@@ -581,11 +581,45 @@ section{padding:26px 0 70px}
 .experience-collage-intro h3{font-size:2rem;margin-bottom:8px}
 .experience-collage-intro p{margin-bottom:0;max-width:720px}
 .experience-collage-note{
-  flex:0 0 290px;
+  margin:0;
   color:var(--muted);
   font-size:.84rem;
   line-height:1.5;
   text-align:right;
+}
+.experience-collage-actions{
+  flex:0 0 320px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:12px;
+}
+.experience-collage-nav{
+  display:flex;
+  gap:9px;
+}
+.experience-nav-button{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  padding:0 0 3px;
+  border:1px solid rgba(183,137,92,.42);
+  border-radius:50%;
+  background:rgba(5,12,24,.72);
+  color:#f7f2ea;
+  font-size:2rem;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.22);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+.experience-nav-button:hover,
+.experience-nav-button:focus-visible{
+  transform:translateY(-1px);
+  border-color:rgba(183,137,92,.82);
+  background:rgba(183,137,92,.16);
+  outline:none;
 }
 .experience-collage{
   display:grid;
@@ -684,7 +718,8 @@ section{padding:26px 0 70px}
 }
 @media (max-width:900px){
   .experience-collage-intro{align-items:flex-start;flex-direction:column;gap:10px}
-  .experience-collage-note{flex:auto;text-align:left;max-width:620px}
+  .experience-collage-actions{flex:auto;width:100%;align-items:flex-start;gap:10px}
+  .experience-collage-note{text-align:left;max-width:620px}
   .experience-collage{grid-template-rows:220px 220px}
 }
 @media (max-width:760px){
@@ -692,6 +727,9 @@ section{padding:26px 0 70px}
   .experience-collage-intro{padding:0 22px;margin-bottom:18px}
   .experience-collage-intro h3{font-size:1.55rem}
   .experience-collage-note{display:none}
+  .experience-collage-actions{padding:0;margin-top:2px}
+  .experience-collage-nav{width:100%;justify-content:flex-end}
+  .experience-nav-button{width:42px;height:42px;font-size:1.85rem}
   .experience-collage{
     display:flex;
     gap:12px;
