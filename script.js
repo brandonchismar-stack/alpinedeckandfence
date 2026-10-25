@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const current = location.pathname.split("/").pop() || "index.html";
+  const normalizePage = path => path.replace(/\/index(?:\.html)?\/?$/, "/").replace(/\.html$/, "").replace(/\/$/, "") || "/";
+  const current = normalizePage(location.pathname);
   document.querySelectorAll(".nav-links a").forEach(link => {
-    if (link.getAttribute("href") === current) link.classList.add("active");
+    if (normalizePage(new URL(link.getAttribute("href"), location.href).pathname) === current) link.classList.add("active");
   });
 
   document.querySelectorAll("[data-compare]").forEach(card => {
@@ -320,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sendEvent("facebook_click", common);
       return;
     }
-    if (url.origin === location.origin && /contact\.html/i.test(url.pathname)) {
+    if (url.origin === location.origin && /^\/contact(?:\.html)?\/?$/i.test(url.pathname)) {
       sendEvent("quote_click", common);
       return;
     }
