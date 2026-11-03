@@ -76,6 +76,14 @@
       <article class="contact-card" id="estimate-form">
         <h3>Request a Free Estimate</h3>
         <p>Tell us about your project. You can also call <a href="tel:9702188515">970-218-8515</a>.</p>
+        <div class="contact-note" id="direct-intake" style="margin-top:16px;margin-bottom:16px">
+          <strong>Need an estimate? Contact Alpine directly.</strong>
+          <p style="margin:8px 0 12px">Our outside online form provider may be unavailable. For a reliable request, call or email your project details and photos directly. We do not consider an online form submitted until you see a confirmation.</p>
+          <div class="hero-actions">
+            <a class="button" href="tel:9702188515">Call 970-218-8515</a>
+            <a class="button-outline" href="mailto:alpinedeckandfence@gmail.com?subject=Estimate%20Request%20-%20Alpine%20Deck%20%26%20Fence">Email Project Details</a>
+          </div>
+        </div>
         <form action="https://formsubmit.co/alpinedeckandfence@gmail.com" method="POST" enctype="multipart/form-data" style="display:grid;gap:12px;margin-top:20px">
           <input type="hidden" name="_subject" value="Alpine Website Estimate Request">
           <input type="hidden" name="_template" value="table">
@@ -105,7 +113,11 @@
           <textarea id="quote-description" name="details" rows="5" required maxlength="4000" placeholder="What needs repairing or building? Approximate dimensions?" style="padding:12px;border-radius:8px"></textarea>
           <label for="quote-photo">Photo (optional, 10 MB maximum)</label>
           <input id="quote-photo" name="attachment" type="file" accept="image/jpeg,image/png,image/webp">
-          <button class="button" type="submit" style="cursor:pointer;border:0;min-height:48px">Send Estimate Request</button>
+          <button class="button" type="submit" style="cursor:pointer;border:0;min-height:48px">Try Online Submission</button>
+          <button class="button-outline" type="button" id="estimate-email-fallback" style="cursor:pointer;min-height:48px">Email My Completed Request Instead</button>
+          <button class="button-outline" type="button" id="estimate-copy-fallback" style="cursor:pointer;min-height:48px">Copy My Request Details</button>
+          <p class="small" id="estimate-fallback-status" role="status" aria-live="polite">Email fallback opens a draft; you must press Send in your email application. Photos must be attached to that email manually.</p>
+          <textarea id="estimate-fallback-text" readonly hidden aria-label="Estimate request details to copy" style="min-height:150px;width:100%"></textarea>
           <p class="small">If the form service is unavailable, <a href="mailto:alpinedeckandfence@gmail.com?subject=Alpine%20Estimate%20Request">email Alpine directly</a> or call <a href="tel:9702188515">970-218-8515</a>. For several photos, email them separately.</p>
         </form>
       </article>
@@ -161,6 +173,59 @@
       photo.setCustomValidity(file && file.size > 10 * 1024 * 1024 ? "Please select a photo under 10 MB, or email your photos separately." : "");
       if (photo.validationMessage) photo.reportValidity();
     });
+  </script>
+  <script>
+    (() => {
+      const form = document.querySelector('form[action^="https://formsubmit.co/"]');
+      const emailButton = document.getElementById("estimate-email-fallback");
+      const copyButton = document.getElementById("estimate-copy-fallback");
+      const status = document.getElementById("estimate-fallback-status");
+      const fallbackText = document.getElementById("estimate-fallback-text");
+      if (!form || !emailButton || !copyButton || !status || !fallbackText) return;
+      const destination = "alpinedeckandfence@gmail.com";
+      const get = id => document.getElementById(id)?.value.trim() || "";
+      function details() {
+        const service = get("quote-service");
+        const subject = "Alpine estimate request - " + service;
+        const body = [
+          "Estimate request for Alpine Deck & Fence LLC",
+          "",
+          "Name: " + get("quote-name"),
+          "Phone: " + get("quote-phone"),
+          "Email: " + (get("quote-email") || "Not provided"),
+          "Project city: " + get("quote-city"),
+          "Project type: " + service,
+          "",
+          "Description:", get("quote-description"),
+          "",
+          "Note: Project photos need to be attached to this email."
+        ].join("\n");
+        return {subject, body};
+      }
+      function show(d, note) {
+        fallbackText.hidden = false;
+        fallbackText.value = "To: " + destination + "\nSubject: " + d.subject + "\n\n" + d.body;
+        status.textContent = note;
+      }
+      emailButton.addEventListener("click", () => {
+        if (!form.reportValidity()) return;
+        const d = details();
+        show(d, "Your email program should open a prepared draft. Attach photos and press Send. The request has NOT yet been sent.");
+        window.location.href = "mailto:" + destination + "?subject=" + encodeURIComponent(d.subject) + "&body=" + encodeURIComponent(d.body);
+      });
+      copyButton.addEventListener("click", async () => {
+        if (!form.reportValidity()) return;
+        const d = details();
+        show(d, "Copy these details into an email to " + destination + " and press Send.");
+        try {
+          await navigator.clipboard.writeText(fallbackText.value);
+          status.textContent = "Details copied. Paste into an email to " + destination + " and press Send.";
+        } catch (error) {
+          fallbackText.focus();
+          fallbackText.select();
+        }
+      });
+    })();
   </script>
   <script src="script.js?v=20260813-v19" defer></script>
 </body>
