@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260813-v19">
+  <link rel="stylesheet" href="style.css?v=20261103-form">
 
   <!-- ALPINE SEO START -->
   <link rel="canonical" href="https://alpinedeckandfence.com/contact">
@@ -56,7 +56,7 @@
         <a href="/contact">Contact</a>
       </nav>
       <div class="nav-cta">
-        <a class="button-outline" href="/contact">Request a Quote</a>
+        <a class="button-outline" href="#estimate-form">Request a Quote</a>
         <a class="button" href="tel:9702188515">Call Now</a>
       </div>
     </div>
@@ -153,6 +153,14 @@
       </div>
     </div>
   </footer>
+  <script>
+    const photo = document.getElementById("quote-photo");
+    if (photo) photo.addEventListener("change", () => {
+      const file = photo.files && photo.files[0];
+      photo.setCustomValidity(file && file.size > 10 * 1024 * 1024 ? "Please select a photo under 10 MB, or email your photos separately." : "");
+      if (photo.validationMessage) photo.reportValidity();
+    });
+  </script>
   <script src="script.js?v=20260813-v19" defer></script>
 </body>
 </html>
