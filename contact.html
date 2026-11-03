@@ -38,7 +38,7 @@
 <body>
   <header class="topbar">
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Alpine Deck & Fence home">
+      <a class="brand" href="/" aria-label="Alpine Deck & Fence home">
         <img src="images/logo-tight.png" alt="Alpine Deck & Fence logo" class="logo" width="906" height="1033" decoding="async" fetchpriority="high">
         <div class="brand-text">
           <small>Fort Collins, Colorado</small>
@@ -46,17 +46,17 @@
         </div>
       </a>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="fence.html">Fencing</a>
-        <a href="deck.html">Decks</a>
-        <a href="projects.html">Projects</a>
-        <a href="carpentry.html">Carpentry</a>
-        <a href="contact.html">Contact</a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/fence">Fencing</a>
+        <a href="/deck">Decks</a>
+        <a href="/projects">Projects</a>
+        <a href="/carpentry">Carpentry</a>
+        <a href="/contact">Contact</a>
       </nav>
       <div class="nav-cta">
-        <a class="button-outline" href="contact.html">Request a Quote</a>
+        <a class="button-outline" href="/contact">Request a Quote</a>
         <a class="button" href="tel:9702188515">Call Now</a>
       </div>
     </div>
@@ -67,32 +67,46 @@
       <div class="page-header-card">
         <div class="eyebrow">Contact</div>
         <h1>Request a quote for decks, fences, or repair work.</h1>
-        <p>Send photos, rough dimensions, and a short description of the job. That’s the fastest way to get an accurate estimate.</p>
+        <p>Submit the form below for an estimate, or call us directly. Photos and rough dimensions help us understand your project.</p>
       </div>
     </div>
   </section>
   <section>
     <div class="container contact-grid">
-      <article class="contact-card">
-        <h3>What to send</h3>
-        <div class="stack">
-          <div class="contact-item">
-            <strong>Project location</strong>
-            <span>City, neighborhood, and any access notes.</span>
-          </div>
-          <div class="contact-item">
-            <strong>Photos</strong>
-            <span>Wide shots plus close-ups of damage or existing conditions.</span>
-          </div>
-          <div class="contact-item">
-            <strong>Approximate size</strong>
-            <span>Linear footage, rough dimensions, and gate count if relevant.</span>
-          </div>
-          <div class="contact-item">
-            <strong>Scope</strong>
-            <span>Repair, rebuild, or new installation.</span>
-          </div>
-        </div>
+      <article class="contact-card" id="estimate-form">
+        <h3>Request a Free Estimate</h3>
+        <p>Tell us about your project. You can also call <a href="tel:9702188515">970-218-8515</a>.</p>
+        <form action="https://formsubmit.co/alpinedeckandfence@gmail.com" method="POST" enctype="multipart/form-data" style="display:grid;gap:12px;margin-top:20px">
+          <input type="hidden" name="_subject" value="Alpine Website Estimate Request">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://alpinedeckandfence.com/quote-received">
+          <input type="text" name="_honey" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label for="quote-name">Name *</label>
+          <input id="quote-name" name="name" type="text" autocomplete="name" required maxlength="120" style="padding:12px;border-radius:8px">
+          <label for="quote-phone">Phone *</label>
+          <input id="quote-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" style="padding:12px;border-radius:8px">
+          <label for="quote-email">Email (optional)</label>
+          <input id="quote-email" name="email" type="email" autocomplete="email" maxlength="180" style="padding:12px;border-radius:8px">
+          <label for="quote-city">Project city *</label>
+          <input id="quote-city" name="city" type="text" required maxlength="120" placeholder="Fort Collins, Loveland, Windsor..." style="padding:12px;border-radius:8px">
+          <label for="quote-service">Project type *</label>
+          <select id="quote-service" name="service" required style="padding:12px;border-radius:8px">
+            <option value="">Select service</option>
+            <option>Fence repair or post replacement</option>
+            <option>Gate repair</option>
+            <option>Fence installation</option>
+            <option>Deck repair</option>
+            <option>Deck construction</option>
+            <option>Small remodeling or carpentry</option>
+            <option>Other</option>
+          </select>
+          <label for="quote-description">Description *</label>
+          <textarea id="quote-description" name="details" rows="5" required maxlength="4000" placeholder="What needs repairing or building? Approximate dimensions?" style="padding:12px;border-radius:8px"></textarea>
+          <label for="quote-photo">Photo (optional, 10 MB maximum)</label>
+          <input id="quote-photo" name="attachment" type="file" accept="image/jpeg,image/png,image/webp">
+          <button class="button" type="submit" style="cursor:pointer;border:0;min-height:48px">Send Estimate Request</button>
+          <p class="small">Submitting sends your information through FormSubmit to Alpine's business email. Do not include sensitive information. For multiple photos, email <a href="mailto:alpinedeckandfence@gmail.com">alpinedeckandfence@gmail.com</a>.</p>
+        </form>
       </article>
       <article class="contact-card">
         <h3>Contact Alpine</h3>
@@ -128,10 +142,10 @@
         <p class="small">Fort Collins, Colorado • Fully Insured</p>
       </div>
       <div class="footer-links small">
-        <a href="services.html">Services</a>
-        <a href="projects.html">Projects</a>
-        <a href="carpentry.html">Carpentry</a>
-        <a href="contact.html">Contact</a>
+        <a href="/services">Services</a>
+        <a href="/projects">Projects</a>
+        <a href="/carpentry">Carpentry</a>
+        <a href="/contact">Contact</a>
       </div>
       <div class="small">
         <p>970-218-8515</p>
