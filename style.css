@@ -1069,3 +1069,12 @@ section{padding:38px 0 88px}
   .brand{gap:11px}
   .brand-text span{font-size:1rem}
 }
+
+/* Alpine estimate form: accessible controls, consistent dark theme */
+#estimate-form{scroll-margin-top:110px}
+#estimate-form form input:not([type=hidden]):not([name=_honey]),#estimate-form form select,#estimate-form form textarea{display:block;box-sizing:border-box;width:100%;min-width:0;background:#101e30!important;color:#f4f1eb!important;border:1px solid #7c8da1!important;font:inherit}
+#estimate-form form label{color:#f4f1eb;font-weight:700;margin-top:4px}
+#estimate-form form input:focus-visible,#estimate-form form textarea:focus-visible,#estimate-form form select:focus-visible{outline:2px solid #aac9e4;outline-offset:2px}
+#estimate-form form textarea{resize:vertical}
+#estimate-form form .button{width:100%;font:inherit}
+@media(max-width:760px){#estimate-form{scroll-margin-top:80px}}
