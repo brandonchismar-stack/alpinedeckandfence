@@ -76,11 +76,7 @@
       <article class="contact-card" id="estimate-form">
         <h3>Request a Free Estimate</h3>
         <p>Tell us about your project. You can also call <a href="tel:9702188515">970-218-8515</a>.</p>
-        <form action="https://formsubmit.co/alpinedeckandfence@gmail.com" method="POST" enctype="multipart/form-data" style="display:grid;gap:12px;margin-top:20px">
-          <input type="hidden" name="_subject" value="Alpine Website Estimate Request">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://alpinedeckandfence.com/quote-received">
-          <input type="text" name="_honey" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <form id="quote-email-form" style="display:grid;gap:12px;margin-top:20px">
           <label for="quote-name">Name *</label>
           <input id="quote-name" name="name" type="text" autocomplete="name" required maxlength="120" style="padding:12px;border-radius:8px">
           <label for="quote-phone">Phone *</label>
@@ -101,11 +97,14 @@
             <option>Other</option>
           </select>
           <label for="quote-description">Description *</label>
-          <textarea id="quote-description" name="details" rows="5" required maxlength="4000" placeholder="What needs repairing or building? Approximate dimensions?" style="padding:12px;border-radius:8px"></textarea>
-          <label for="quote-photo">Photo (optional, 10 MB maximum)</label>
-          <input id="quote-photo" name="attachment" type="file" accept="image/jpeg,image/png,image/webp">
-          <button class="button" type="submit" style="cursor:pointer;border:0;min-height:48px">Send Estimate Request</button>
-          <p class="small">Submitting sends your information through FormSubmit to Alpine's business email. Do not include sensitive information. For multiple photos, email <a href="mailto:alpinedeckandfence@gmail.com">alpinedeckandfence@gmail.com</a>.</p>
+          <textarea id="quote-description" name="details" rows="5" required maxlength="1500" placeholder="What needs repairing or building? Approximate dimensions?" style="padding:12px;border-radius:8px"></textarea>
+          <p class="small">Have project photos? Attach them to the email draft after it opens.</p>
+          <button class="button" type="submit" style="cursor:pointer;border:0;min-height:48px">Open Email With My Estimate Details</button>
+          <button class="button-outline" type="button" id="quote-gmail" style="cursor:pointer;min-height:44px">Use Gmail Instead</button>
+          <button class="button-outline" type="button" id="quote-copy" style="cursor:pointer;min-height:44px">Copy Request Details</button>
+          <p id="quote-status" role="status" aria-live="polite" class="small">Your email app will open a draft. You must press Send to submit your request.</p>
+          <textarea id="quote-copy-fallback" readonly hidden aria-label="Copy your estimate request" style="width:100%;min-height:130px"></textarea>
+          <p class="small">Your information is not sent automatically. If an email draft doesn't open, use Gmail or copy the request and send it to <a href="mailto:alpinedeckandfence@gmail.com">alpinedeckandfence@gmail.com</a>. Call <a href="tel:9702188515">970-218-8515</a> for faster assistance.</p>
         </form>
       </article>
       <article class="contact-card">
@@ -154,12 +153,70 @@
     </div>
   </footer>
   <script>
-    const photo = document.getElementById("quote-photo");
-    if (photo) photo.addEventListener("change", () => {
-      const file = photo.files && photo.files[0];
-      photo.setCustomValidity(file && file.size > 10 * 1024 * 1024 ? "Please select a photo under 10 MB, or email your photos separately." : "");
-      if (photo.validationMessage) photo.reportValidity();
-    });
+    (function () {
+      const form = document.getElementById("quote-email-form");
+      const status = document.getElementById("quote-status");
+      const fallback = document.getElementById("quote-copy-fallback");
+      const recipient = "alpinedeckandfence@gmail.com";
+      function draft() {
+        const get = id => document.getElementById(id).value.trim();
+        const service = get("quote-service");
+        const subject = "Alpine Estimate Request - " + service;
+        const message = [
+          "New Alpine Deck & Fence estimate request",
+          "",
+          "Name: " + get("quote-name"),
+          "Phone: " + get("quote-phone"),
+          "Email: " + (get("quote-email") || "Not provided"),
+          "Project location: " + get("quote-city"),
+          "Type of work: " + service,
+          "",
+          "Project details:",
+          get("quote-description"),
+          "",
+          "Please attach project photos if available."
+        ].join("\n");
+        return {subject, message};
+      }
+      function valid() { return form.reportValidity(); }
+      function emailHref(d) {
+        return "mailto:" + recipient + "?subject=" + encodeURIComponent(d.subject) + "&body=" + encodeURIComponent(d.message);
+      }
+      function gmailHref(d) {
+        return "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(recipient)
+          + "&su=" + encodeURIComponent(d.subject) + "&body=" + encodeURIComponent(d.message);
+      }
+      function showInstructions(d, message) {
+        status.textContent = message;
+        fallback.hidden = false;
+        fallback.value = "To: " + recipient + "\nSubject: " + d.subject + "\n\n" + d.message;
+      }
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!valid()) return;
+        const d = draft();
+        showInstructions(d, "Your email app should open. Review the draft, attach photos if needed, and press Send. Nothing has been sent automatically.");
+        window.location.href = emailHref(d);
+      });
+      document.getElementById("quote-gmail").addEventListener("click", function () {
+        if (!valid()) return;
+        const d = draft();
+        showInstructions(d, "A Gmail draft should open in another tab. Press Send in Gmail to finish; nothing has been sent automatically.");
+        window.open(gmailHref(d), "_blank", "noopener,noreferrer");
+      });
+      document.getElementById("quote-copy").addEventListener("click", async function () {
+        if (!valid()) return;
+        const d = draft();
+        showInstructions(d, "Request details are shown below. Copy them into an email to alpinedeckandfence@gmail.com and press Send.");
+        try {
+          await navigator.clipboard.writeText(fallback.value);
+          status.textContent = "Copied. Paste the details into an email to " + recipient + " and press Send.";
+        } catch (error) {
+          fallback.focus();
+          fallback.select();
+        }
+      });
+    })();
   </script>
   <script src="script.js?v=20260813-v19" defer></script>
 </body>
