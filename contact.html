@@ -90,38 +90,37 @@
         </div>
         <script async src="https://tally.so/widgets/embed.js"></script>
         <script>
-          // Record an actual completed estimate request, not just a quote-button click.
-          // Tally's embedded form posts Tally.FormSubmitted after a successful submission.
+          // Count completed Tally estimate submissions (never mere quote-button clicks).
           (() => {
             const formId = "9NBAP5";
             let leadRecorded = false;
-
-            window.addEventListener("message", event => {
-              // Tally embeds may replace their iframe during initialization.
-              // Match the trusted origin and exact Alpine form ID instead of
-              // comparing against a potentially stale iframe window reference.
-              if (leadRecorded ||
-                  (event.origin !== "https://tally.so" &&
-                   event.origin !== "https://www.tally.so")) return;
-
-              let message = event.data;
-              if (typeof message === "string") {
-                if (!message.includes("Tally.FormSubmitted")) return;
-                try { message = JSON.parse(message); } catch (_) { return; }
-              }
-              if (!message || message.event !== "Tally.FormSubmitted") return;
-
-              const reportedFormId = message.payload?.formId || message.formId;
-              if (reportedFormId !== formId) return;
-
-              if (typeof window.gtag !== "function") return;
+            const recordLead = payload => {
+              const reportedId = payload?.formId;
+              if (leadRecorded || reportedId !== formId || typeof window.gtag !== "function") return;
               leadRecorded = true;
-              // Do not transmit customer names, phone numbers, emails, or form answers.
+              // Never pass customer names, emails, phone numbers, or answers to GA4.
               window.gtag("event", "generate_lead", {
                 form_id: formId,
                 form_name: "Alpine Deck & Fence Free Estimate",
                 method: "Tally"
               });
+            };
+
+            // Official Tally browser custom event (dispatched by embed.js).
+            window.addEventListener("Tally.FormSubmitted", event => recordLead(event.detail));
+
+            // Fallback for raw messages from a Tally iframe.
+            window.addEventListener("message", event => {
+              if (event.origin !== "https://tally.so" &&
+                  event.origin !== "https://www.tally.so") return;
+              let message = event.data;
+              if (typeof message === "string") {
+                if (!message.includes("Tally.FormSubmitted")) return;
+                try { message = JSON.parse(message); } catch (_) { return; }
+              }
+              if (message?.event === "Tally.FormSubmitted") {
+                recordLead(message.payload || message);
+              }
             });
           })();
         </script>
