@@ -94,22 +94,25 @@
           // Tally's embedded form posts Tally.FormSubmitted after a successful submission.
           (() => {
             const formId = "9NBAP5";
-            const tallyFrame = document.querySelector('iframe[src^="https://tally.so/embed/9NBAP5"]');
             let leadRecorded = false;
 
             window.addEventListener("message", event => {
-              if (leadRecorded || !tallyFrame ||
-                  event.origin !== "https://tally.so" ||
-                  event.source !== tallyFrame.contentWindow) return;
+              // Tally embeds may replace their iframe during initialization.
+              // Match the trusted origin and exact Alpine form ID instead of
+              // comparing against a potentially stale iframe window reference.
+              if (leadRecorded ||
+                  (event.origin !== "https://tally.so" &&
+                   event.origin !== "https://www.tally.so")) return;
 
               let message = event.data;
               if (typeof message === "string") {
+                if (!message.includes("Tally.FormSubmitted")) return;
                 try { message = JSON.parse(message); } catch (_) { return; }
               }
               if (!message || message.event !== "Tally.FormSubmitted") return;
 
               const reportedFormId = message.payload?.formId || message.formId;
-              if (reportedFormId && reportedFormId !== formId) return;
+              if (reportedFormId !== formId) return;
 
               if (typeof window.gtag !== "function") return;
               leadRecorded = true;
