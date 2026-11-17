@@ -108,12 +108,11 @@
               }
               if (!message || message.event !== "Tally.FormSubmitted") return;
 
-              // Validate against the documented successful submission payload.
-              // Tally's internal formId may differ from the public embed URL ID.
+              // The observed Alpine submission includes this form ID and fields.
+              // Do not require a submission ID: Tally's runtime payload can vary.
               const submission = message.payload;
               if (!submission ||
-                  typeof submission.id !== "string" ||
-                  typeof submission.formId !== "string" ||
+                  submission.formId !== publicFormId ||
                   !Array.isArray(submission.fields) ||
                   !document.querySelector('iframe[src^="https://tally.so/embed/9NBAP5"]') ||
                   typeof window.gtag !== "function") return;
