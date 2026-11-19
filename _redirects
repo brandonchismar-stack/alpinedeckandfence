@@ -4,3 +4,15 @@
 /deck-builder-fort-collins.html /deck 301
 /fence-contractor-fort-collins /fence 301
 /fence-contractor-fort-collins.html /fence 301
+
+# Explicit legacy .html -> clean URL consolidation from the former GitHub Pages site.
+/index.html / 301
+/about.html /about 301
+/carpentry.html /carpentry 301
+/contact.html /contact 301
+/deck-repair-fort-collins.html /deck-repair-fort-collins 301
+/deck.html /deck 301
+/fence-repair-fort-collins.html /fence-repair-fort-collins 301
+/fence.html /fence 301
+/projects.html /projects 301
+/services.html /services 301
