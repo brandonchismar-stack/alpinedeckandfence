@@ -1,0 +1,6 @@
+# Alpine canonical consolidation: keep one indexable URL per overlapping service topic.
+# Cloudflare Pages serves /deck and /fence as the canonical destinations.
+/deck-builder-fort-collins /deck 301
+/deck-builder-fort-collins.html /deck 301
+/fence-contractor-fort-collins /fence 301
+/fence-contractor-fort-collins.html /fence 301
